@@ -56,7 +56,11 @@ public class ArbolBinarioDeBusqueda<T extends Comparable<T>> {
     }
 
     private void preOrden(Nodo nodo, List<T> lista) {
-        // completar
+        if (nodo == null) return;
+
+        lista.add(nodo.dato);                     // Raíz
+        preOrden(nodo.izquierda, lista);          // Izquierda
+        preOrden(nodo.derecha, lista);            // Derecha
     }
 
     public List<T> getListaPostOrden() {
@@ -66,7 +70,11 @@ public class ArbolBinarioDeBusqueda<T extends Comparable<T>> {
     }
 
     private void postOrden(Nodo nodo, List<T> lista) {
-        // completar
+        if (nodo == null) return;
+
+        postOrden(nodo.izquierda, lista);         // Izquierda
+        postOrden(nodo.derecha, lista);           // Derecha
+        lista.add(nodo.dato);                     // Raíz
     }
 
     public List<T> getListaOrdenCentral() {
@@ -76,7 +84,11 @@ public class ArbolBinarioDeBusqueda<T extends Comparable<T>> {
     }
 
     private void ordenCentral(Nodo nodo, List<T> lista) {
-        // completar
+        if (nodo == null) return;
+
+        ordenCentral(nodo.izquierda, lista);      // Izquierda
+        lista.add(nodo.dato);                     // Raíz
+        ordenCentral(nodo.derecha, lista);        // Derecha
     }
 
     // ------------------ Persona 3 ------------------
