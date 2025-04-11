@@ -1,9 +1,21 @@
+import java.util.*;
 public class Main {
     public static void main(String[] args) {
         ArbolBinarioDeBusquedaEnteros arbol = new ArbolBinarioDeBusquedaEnteros();
 
-        for (int i = 0; i <= 128; i++) {
-            arbol.add(i);
+        List<Integer> numeros = new ArrayList<>();
+
+        // Añadimos del 0 al 20
+        for (int i = 0; i <= 20; i++) {
+            numeros.add(i);
+        }
+
+        // Desordenamos la lista
+        Collections.shuffle(numeros);
+
+        // Insertamos en el árbol
+        for (int num : numeros) {
+            arbol.add(num);
         }
 
         System.out.println("PreOrden: " + arbol.getListaPreOrden());
