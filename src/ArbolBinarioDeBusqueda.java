@@ -102,8 +102,16 @@ public class ArbolBinarioDeBusqueda<T extends Comparable<T>> {
     }
 
     private int grado(Nodo nodo) {
-        // completar
-        return 0;
+        if (nodo == null) return 0;
+
+        int hijos = 0;
+        if (nodo.izquierda != null) hijos++;
+        if (nodo.derecha != null) hijos++;
+
+        int gradoIzq = grado(nodo.izquierda);
+        int gradoDer = grado(nodo.derecha);
+
+        return Math.max(hijos, Math.max(gradoIzq, gradoDer));
     }
 
     public int getAltura() {
@@ -111,8 +119,12 @@ public class ArbolBinarioDeBusqueda<T extends Comparable<T>> {
     }
 
     private int altura(Nodo nodo) {
-        // completar
-        return 0;
+        if (nodo == null) return -1; // -1 si cuentas nodos, 0 si cuentas niveles
+
+        int altIzq = altura(nodo.izquierda);
+        int altDer = altura(nodo.derecha);
+
+        return Math.max(altIzq, altDer) + 1;
     }
 
     public List<T> getListaDatosNivel(int nivel) {
@@ -122,7 +134,14 @@ public class ArbolBinarioDeBusqueda<T extends Comparable<T>> {
     }
 
     private void datosNivel(Nodo nodo, int nivel, int actual, List<T> lista) {
-        // completar
+        if (nodo == null) return;
+
+        if (nivel == actual) {
+            lista.add(nodo.dato);
+        } else {
+            datosNivel(nodo.izquierda, nivel, actual + 1, lista);
+            datosNivel(nodo.derecha, nivel, actual + 1, lista);
+        }
     }
 
     public List<T> getCamino(T dato) {
@@ -132,10 +151,22 @@ public class ArbolBinarioDeBusqueda<T extends Comparable<T>> {
     }
 
     private boolean camino(Nodo nodo, T dato, List<T> lista) {
-        // completar
+        if (nodo == null) return false;
+
+        lista.add(nodo.dato);
+
+        if (nodo.dato.equals(dato)) {
+            return true;
+        }
+
+        if (camino(nodo.izquierda, dato, lista) || camino(nodo.derecha, dato, lista)) {
+            return true;
+        }
+
+        // Si no está en ninguno, quitamos este nodo del camino
+        lista.remove(lista.size() - 1);
         return false;
     }
-
     // ------------------ Persona 4 ------------------
 
     public boolean isArbolHomogeneo() {
