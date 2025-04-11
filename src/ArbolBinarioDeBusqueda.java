@@ -22,17 +22,21 @@ public class ArbolBinarioDeBusqueda<T extends Comparable<T>> {
         raiz = addRecursivo(raiz, dato);
     }
 
-    private Nodo addRecursivo(Nodo actual, T dato) {
-        if (actual == null) {
-            return new Nodo(dato);
+    private Nodo addRecursivo(Nodo nodo, T dato) {
+        if (nodo == null) {
+            return new Nodo(dato);  // Si el nodo es null, creamos un nuevo nodo con el dato
         }
 
-        if (dato.compareTo(actual.dato) < 0) {
-            actual.izquierda = addRecursivo(actual.izquierda, dato);
-        } else if (dato.compareTo(actual.dato) > 0) {
-            actual.derecha = addRecursivo(actual.derecha, dato);
+        // Si el dato es menor, lo colocamos en el subárbol izquierdo
+        if (dato.compareTo(nodo.dato) < 0) {
+            nodo.izquierda = addRecursivo(nodo.izquierda, dato);
         }
-        return actual;
+        // Si el dato es mayor o igual, lo colocamos en el subárbol derecho
+        else {
+            nodo.derecha = addRecursivo(nodo.derecha, dato);
+        }
+
+        return nodo;  // Retornamos el nodo (ya actualizado)
     }
 
     public ArbolBinarioDeBusqueda<T> getSubArbolIzquierda() {
@@ -56,11 +60,11 @@ public class ArbolBinarioDeBusqueda<T extends Comparable<T>> {
     }
 
     private void preOrden(Nodo nodo, List<T> lista) {
-        if (nodo == null) return;
-
-        lista.add(nodo.dato);                     // Raíz
-        preOrden(nodo.izquierda, lista);          // Izquierda
-        preOrden(nodo.derecha, lista);            // Derecha
+        if(nodo != null){
+            lista.add(nodo.dato);
+            preOrden(nodo.izquierda, lista);
+            preOrden(nodo.derecha, lista);
+        }
     }
 
     public List<T> getListaPostOrden() {
@@ -70,11 +74,11 @@ public class ArbolBinarioDeBusqueda<T extends Comparable<T>> {
     }
 
     private void postOrden(Nodo nodo, List<T> lista) {
-        if (nodo == null) return;
-
-        postOrden(nodo.izquierda, lista);         // Izquierda
-        postOrden(nodo.derecha, lista);           // Derecha
-        lista.add(nodo.dato);                     // Raíz
+        if (nodo != null) {
+            postOrden(nodo.izquierda, lista);
+            postOrden(nodo.derecha, lista);
+            lista.add(nodo.dato);
+        }
     }
 
     public List<T> getListaOrdenCentral() {
@@ -84,11 +88,11 @@ public class ArbolBinarioDeBusqueda<T extends Comparable<T>> {
     }
 
     private void ordenCentral(Nodo nodo, List<T> lista) {
-        if (nodo == null) return;
-
-        ordenCentral(nodo.izquierda, lista);      // Izquierda
-        lista.add(nodo.dato);                     // Raíz
-        ordenCentral(nodo.derecha, lista);        // Derecha
+        if (nodo != null){
+            ordenCentral(nodo.izquierda, lista);
+            lista.add(nodo.dato);
+            ordenCentral(nodo.derecha, lista);
+        }
     }
 
     // ------------------ Persona 3 ------------------
